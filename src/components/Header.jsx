@@ -28,7 +28,7 @@ export default function Header({ selectedDay, setSelectedDay }) {
           className={`todaybtn ${isToday ? 'is-today' : ''}`} 
           onClick={() => setSelectedDay(new Date().getDay())}
         >
-          {isToday ? 'Today' : 'Jump to today'}
+          Today
         </button>
       </div>
     </>
