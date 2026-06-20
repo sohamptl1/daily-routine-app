@@ -61,6 +61,38 @@ body{
   cursor:pointer;
 }
 .daynav button:hover{border-color:var(--amber);color:var(--amber-text);}
+
+.day-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.day-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  flex: 1;
+  min-width: 44px;
+  height: 38px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.day-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber-text);
+}
+.day-btn.active {
+  background: var(--amber-dim);
+  border-color: var(--amber);
+  color: var(--amber-text);
+  font-weight: 600;
+}
 .todaybtn{
   flex:1;
   background:var(--bg-card);

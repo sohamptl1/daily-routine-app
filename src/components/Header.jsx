@@ -1,44 +1,35 @@
 import React from 'react';
-import { DAY_GUJ, DAY_EN } from '../data';
+import { DAY_GUJ, DAY_EN, DAY_SHORT } from '../data';
 
-export default function Header({ viewedDate, setViewedDate }) {
-  const dc = viewedDate.getDay();
-  const dateStr = viewedDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-
-  const isSameDay = (a, b) => {
-    return a.getFullYear() === b.getFullYear() && 
-           a.getMonth() === b.getMonth() && 
-           a.getDate() === b.getDate();
-  };
-
-  const today = new Date();
-  const isToday = isSameDay(viewedDate, today);
+export default function Header({ selectedDay, setSelectedDay }) {
+  const isToday = selectedDay === new Date().getDay();
 
   return (
     <>
       <div className="eyebrow">AAJ NU ROUTINE</div>
       <div className="daynames">
-        {DAY_GUJ[dc]} <span className="en">{DAY_EN[dc]}</span>
+        {DAY_GUJ[selectedDay]} <span className="en">{DAY_EN[selectedDay]}</span>
       </div>
-      <div className="datestr">{dateStr}</div>
 
-      <div className="daynav">
-        <button aria-label="Previous day" onClick={() => {
-          const d = new Date(viewedDate);
-          d.setDate(d.getDate() - 1);
-          setViewedDate(d);
-        }}>&#8592;</button>
+      <div className="day-selector">
+        {[0, 1, 2, 3, 4, 5, 6].map(day => (
+          <button 
+            key={day}
+            className={`day-btn ${selectedDay === day ? 'active' : ''}`}
+            onClick={() => setSelectedDay(day)}
+          >
+            {DAY_SHORT[day]}
+          </button>
+        ))}
+      </div>
+
+      <div className="daynav" style={{ marginTop: '14px' }}>
         <button 
           className={`todaybtn ${isToday ? 'is-today' : ''}`} 
-          onClick={() => setViewedDate(new Date())}
+          onClick={() => setSelectedDay(new Date().getDay())}
         >
           {isToday ? 'Today' : 'Jump to today'}
         </button>
-        <button aria-label="Next day" onClick={() => {
-          const d = new Date(viewedDate);
-          d.setDate(d.getDate() + 1);
-          setViewedDate(d);
-        }}>&#8594;</button>
       </div>
     </>
   );

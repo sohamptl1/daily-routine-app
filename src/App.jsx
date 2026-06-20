@@ -6,21 +6,17 @@ import WeeklyGlance from './components/WeeklyGlance';
 import AsNeeded from './components/AsNeeded';
 import { ITEMS } from './data';
 
-function ymd(d) {
-  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-}
-
-function storageKey(d) {
-  return 'routine-checks-' + ymd(d);
+function storageKey(day) {
+  return 'routine-checks-' + day;
 }
 
 function App() {
-  const [viewedDate, setViewedDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(new Date().getDay());
   const [checkedIds, setCheckedIds] = useState(new Set());
 
-  // Load checks when date changes
+  // Load checks when day changes
   useEffect(() => {
-    const key = storageKey(viewedDate);
+    const key = storageKey(selectedDay);
     const saved = localStorage.getItem(key);
     if (saved) {
       try {
@@ -31,11 +27,11 @@ function App() {
     } else {
       setCheckedIds(new Set());
     }
-  }, [viewedDate]);
+  }, [selectedDay]);
 
   // Save checks when they change
   const saveChecks = (newSet) => {
-    const key = storageKey(viewedDate);
+    const key = storageKey(selectedDay);
     localStorage.setItem(key, JSON.stringify([...newSet]));
     setCheckedIds(newSet);
   };
@@ -54,13 +50,12 @@ function App() {
     saveChecks(new Set());
   };
 
-  const dc = viewedDate.getDay();
-  const applicableItems = ITEMS.filter(it => it.days.includes(dc));
+  const applicableItems = ITEMS.filter(it => it.days.includes(selectedDay));
   const checkedCount = applicableItems.filter(it => checkedIds.has(it.id)).length;
 
   return (
     <div className="wrap">
-      <Header viewedDate={viewedDate} setViewedDate={setViewedDate} />
+      <Header selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       
       <ProgressArc 
         checkedCount={checkedCount} 
