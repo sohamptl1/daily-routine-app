@@ -1,0 +1,11 @@
+[build]
+  # The command Netlify should run to build your Vite app
+  command = "npm run build"
+  # The folder Netlify should serve (where Vite outputs the build)
+  publish = "dist"
+
+# This handles client-side routing, ensuring refreshing the page doesn't throw a 404
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
