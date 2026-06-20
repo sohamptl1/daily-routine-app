@@ -5,11 +5,18 @@ export default function QuoteOfTheDay() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/quote')
+    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://zenquotes.io/api/today')}`)
       .then(res => res.json())
       .then(data => {
-        if (data && data.length > 0) {
-          setQuote(data[0]);
+        if (data && data.contents) {
+          try {
+            const parsed = JSON.parse(data.contents);
+            if (parsed && parsed.length > 0) {
+              setQuote(parsed[0]);
+            }
+          } catch (e) {
+            console.error("Error parsing quote data", e);
+          }
         }
         setLoading(false);
       })
