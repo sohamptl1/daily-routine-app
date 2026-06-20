@@ -58,23 +58,26 @@ function App() {
     <div className="wrap">
       <Header selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       
-      <ProgressArc 
-        checkedCount={checkedCount} 
-        totalCount={applicableItems.length} 
-        onReset={handleReset} 
-      />
+      <div className="dashboard-grid">
+        <div className="sidebar">
+          <ProgressArc 
+            checkedCount={checkedCount} 
+            totalCount={applicableItems.length} 
+            onReset={handleReset} 
+          />
+          <WeeklyGlance items={ITEMS} checkedIds={checkedIds} />
+          <AsNeeded />
+          <BackupAndReport />
+        </div>
 
-      <Timeline 
-        items={applicableItems} 
-        checkedIds={checkedIds} 
-        toggleItem={toggleItem} 
-      />
-
-      <WeeklyGlance />
-      
-      <AsNeeded />
-
-      <BackupAndReport />
+        <div className="main-content">
+          <Timeline 
+            items={applicableItems} 
+            checkedIds={checkedIds} 
+            toggleItem={toggleItem} 
+          />
+        </div>
+      </div>
 
       <footer>
         This is an organizational tool only, not medical advice. D3 sources rotate so no single day stacks more than one. Confirm total weekly doses — especially D3, Finasteride, and Curcumin — with your pharmacist or physician. Clarifying shampoo is weekly only — overuse strips natural scalp oils. Checks are saved per day on this device.
