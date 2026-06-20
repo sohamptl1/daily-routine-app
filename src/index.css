@@ -260,6 +260,52 @@ table.glance td.name .freqtag{display:block;font-size:9.5px;color:var(--text-fai
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-faint);font-family:var(--font-mono);}
 
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-faint);font-family:var(--font-mono);}
+
+/* Backup and Report */
+.br-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.br-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.br-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber-text);
+}
+.br-btn.primary {
+  background: var(--teal-dim);
+  border-color: var(--teal);
+  color: var(--teal-text);
+}
+.br-btn.secondary {
+  margin-top: 10px;
+}
+.report-box {
+  margin-top: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.report-box pre {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text);
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
 footer{
   margin-top:44px;
   padding-top:18px;

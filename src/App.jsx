@@ -4,6 +4,7 @@ import ProgressArc from './components/ProgressArc';
 import Timeline from './components/Timeline';
 import WeeklyGlance from './components/WeeklyGlance';
 import AsNeeded from './components/AsNeeded';
+import BackupAndReport from './components/BackupAndReport';
 import { ITEMS } from './data';
 
 function storageKey(day) {
@@ -72,6 +73,8 @@ function App() {
       <WeeklyGlance />
       
       <AsNeeded />
+
+      <BackupAndReport />
 
       <footer>
         This is an organizational tool only, not medical advice. D3 sources rotate so no single day stacks more than one. Confirm total weekly doses — especially D3, Finasteride, and Curcumin — with your pharmacist or physician. Clarifying shampoo is weekly only — overuse strips natural scalp oils. Checks are saved per day on this device.
