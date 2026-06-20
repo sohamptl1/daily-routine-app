@@ -6,6 +6,14 @@ import WeeklyGlance from './components/WeeklyGlance';
 import AsNeeded from './components/AsNeeded';
 import BackupAndReport from './components/BackupAndReport';
 import QuoteOfTheDay from './components/QuoteOfTheDay';
+import StreakCounter from './components/StreakCounter';
+import Confetti from './components/Confetti';
+import WeeklyChart from './components/WeeklyChart';
+import PomodoroTimer from './components/PomodoroTimer';
+import ShareCard from './components/ShareCard';
+import ThemeToggle from './components/ThemeToggle';
+import RoutineEditor from './components/RoutineEditor';
+import Reminders from './components/Reminders';
 import { ITEMS } from './data';
 
 function storageKey(day) {
@@ -15,6 +23,13 @@ function storageKey(day) {
 function App() {
   const [selectedDay, setSelectedDay] = useState(new Date().getDay());
   const [checkedIds, setCheckedIds] = useState(new Set());
+  const [confettiKey, setConfettiKey] = useState(0);
+  const [customItems, setCustomItems] = useState(() => {
+    const saved = localStorage.getItem('routine-custom-items');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const allItems = [...ITEMS, ...customItems];
 
   // Load checks when day changes
   useEffect(() => {
@@ -46,18 +61,33 @@ function App() {
       newSet.add(id);
     }
     saveChecks(newSet);
+
+    // Check for 100% → confetti
+    const applicable = allItems.filter(it => it.days.includes(selectedDay));
+    const willBeChecked = applicable.filter(it => newSet.has(it.id)).length;
+    if (willBeChecked === applicable.length && applicable.length > 0) {
+      setConfettiKey(prev => prev + 1);
+    }
   };
 
   const handleReset = () => {
     saveChecks(new Set());
   };
 
-  const applicableItems = ITEMS.filter(it => it.days.includes(selectedDay));
+  const applicableItems = allItems.filter(it => it.days.includes(selectedDay));
   const checkedCount = applicableItems.filter(it => checkedIds.has(it.id)).length;
 
   return (
     <div className="wrap">
-      <Header selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+      <Confetti trigger={confettiKey} />
+
+      <div className="header-row">
+        <Header selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+        <div className="header-actions">
+          <StreakCounter />
+          <ThemeToggle />
+        </div>
+      </div>
       
       <div className="dashboard-grid">
         <div className="sidebar">
@@ -67,8 +97,13 @@ function App() {
             totalCount={applicableItems.length} 
             onReset={handleReset} 
           />
-          <WeeklyGlance items={ITEMS} checkedIds={checkedIds} />
+          <WeeklyChart />
+          <WeeklyGlance items={allItems} checkedIds={checkedIds} />
+          <PomodoroTimer />
+          <ShareCard />
           <AsNeeded />
+          <RoutineEditor onSave={setCustomItems} />
+          <Reminders />
           <BackupAndReport />
         </div>
 
