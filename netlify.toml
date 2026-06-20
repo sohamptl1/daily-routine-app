@@ -4,6 +4,12 @@
   # The folder Netlify should serve (where Vite outputs the build)
   publish = "dist"
 
+# ZenQuotes Proxy (Bypass CORS)
+[[redirects]]
+  from = "/api/quote"
+  to = "https://zenquotes.io/api/today"
+  status = 200
+
 # This handles client-side routing, ensuring refreshing the page doesn't throw a 404
 [[redirects]]
   from = "/*"

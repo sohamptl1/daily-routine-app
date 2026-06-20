@@ -5,6 +5,7 @@ import Timeline from './components/Timeline';
 import WeeklyGlance from './components/WeeklyGlance';
 import AsNeeded from './components/AsNeeded';
 import BackupAndReport from './components/BackupAndReport';
+import QuoteOfTheDay from './components/QuoteOfTheDay';
 import { ITEMS } from './data';
 
 function storageKey(day) {
@@ -60,6 +61,7 @@ function App() {
       
       <div className="dashboard-grid">
         <div className="sidebar">
+          <QuoteOfTheDay />
           <ProgressArc 
             checkedCount={checkedCount} 
             totalCount={applicableItems.length} 

@@ -350,6 +350,44 @@ table.glance td.name .freqtag{display:block;font-size:9.5px;color:var(--text-fai
   line-height: 1.5;
 }
 
+/* Quote */
+.quote-box {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.quote-box.loading {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+}
+.quote-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.quote-author {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--amber-text);
+}
+.quote-attr {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-faint);
+  opacity: 0.6;
+}
+.quote-attr a {
+  color: inherit;
+}
+
 footer{
   margin-top:44px;
   padding-top:18px;
